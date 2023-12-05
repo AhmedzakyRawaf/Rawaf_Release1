@@ -1,11 +1,9 @@
-package com.fooder.testCases;
+package com.Rawaf.testCases;
 
-import com.fooder.Pages.P001LandingPage;
-import com.fooder.testBase.BaseTest;
+import com.Rawaf.Pages.P001LandingPage;
+import com.Rawaf.testBase.BaseTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-
-import static com.fooder.testBase.ReadProperties.*;
 
 public class M001WelcomeScreenTest extends BaseTest {
     P001LandingPage LandPage;

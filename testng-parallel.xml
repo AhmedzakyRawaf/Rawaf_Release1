@@ -3,26 +3,26 @@
     <test name="ChromeTest">
         <parameter name="browser" value="chrome" />
         <classes>
-            <class name="com.fooder.testCases.M001WelcomeScreenTest" />
-            <class name="com.fooder.testCases.M002DashboardScreenTest" />
-            <class name="com.fooder.testCases.M003DashboardSettingsTest" />
-            <class name="com.fooder.testCases.M004BranchesTest" />
-            <class name="com.fooder.testCases.M005DeliveryAreaTest" />
-            <class name="com.fooder.testCases.M006EditBranchTest" />
-            <class name="com.fooder.testCases.M007CreateRolesTest" />
+            <class name="com.Rawaf.testCases.M001WelcomeScreenTest" />
+            <class name="com.Rawaf.testCases.M002DashboardScreenTest" />
+            <class name="com.Rawaf.testCases.M003DashboardSettingsTest" />
+            <class name="com.Rawaf.testCases.M004BranchesTest" />
+            <class name="com.Rawaf.testCases.M005DeliveryAreaTest" />
+            <class name="com.Rawaf.testCases.M006EditBranchTest" />
+            <class name="com.Rawaf.testCases.M007CreateRolesTest" />
         </classes>
     </test>
 
     <test name="edgeTest">
         <parameter name="browser" value="edge" />
         <classes>
-            <class name="com.fooder.testCases.M001WelcomeScreenTest" />
-            <class name="com.fooder.testCases.M002DashboardScreenTest" />
-            <class name="com.fooder.testCases.M003DashboardSettingsTest" />
-            <class name="com.fooder.testCases.M004BranchesTest" />
-            <class name="com.fooder.testCases.M005DeliveryAreaTest" />
-            <class name="com.fooder.testCases.M006EditBranchTest" />
-            <class name="com.fooder.testCases.M007CreateRolesTest" />
+            <class name="com.Rawaf.testCases.M001WelcomeScreenTest" />
+            <class name="com.Rawaf.testCases.M002DashboardScreenTest" />
+            <class name="com.Rawaf.testCases.M003DashboardSettingsTest" />
+            <class name="com.Rawaf.testCases.M004BranchesTest" />
+            <class name="com.Rawaf.testCases.M005DeliveryAreaTest" />
+            <class name="com.Rawaf.testCases.M006EditBranchTest" />
+            <class name="com.Rawaf.testCases.M007CreateRolesTest" />
 
         </classes>
     </test>

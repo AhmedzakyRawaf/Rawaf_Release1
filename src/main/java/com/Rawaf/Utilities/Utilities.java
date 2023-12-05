@@ -1,4 +1,4 @@
-package com.fooder.Utilities;
+package com.Rawaf.Utilities;
 
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;

@@ -1,6 +1,5 @@
-package com.fooder.testBase;
+package com.Rawaf.testBase;
 
-import com.fooder.Utilities.ExtentReportManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -10,11 +9,9 @@ import org.testng.annotations.*;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
-import java.util.concurrent.TimeUnit;
 
-import static Utilities.PropertiesLoader.readEnvFile;
-import static com.fooder.Utilities.ExtentReportManager.*;
-import static com.fooder.testBase.ReadProperties.URL;
+import static com.Rawaf.Utilities.ExtentReportManager.*;
+import static com.Rawaf.testBase.ReadProperties.URL;
 
 public class BaseTest {
 

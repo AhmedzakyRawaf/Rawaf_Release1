@@ -1,6 +1,6 @@
-package com.fooder.Pages;
+package com.Rawaf.Pages;
 
-import com.fooder.PageBase.PageBase;
+import com.Rawaf.PageBase.PageBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
