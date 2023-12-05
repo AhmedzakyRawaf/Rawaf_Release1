@@ -12,10 +12,16 @@ public class P001LandingPage extends PageBase {
 
 
     private final By Rawaf_Logo = By.linkText("عن المنصة");
+    private final By FAQ = By.linkText("الأسئلة الشائعة");
     public void checkRawafLogo(){
         waitForVisibilityOfElement(Rawaf_Logo);
         Assert.assertTrue(driver.findElement(Rawaf_Logo).isDisplayed());
         clickOnelement(Rawaf_Logo);
+    }
+    public void checkFAQ(){
+        waitForVisibilityOfElement(FAQ);
+        Assert.assertTrue(driver.findElement(FAQ).isDisplayed());
+        clickOnelement(FAQ);
     }
 
 }

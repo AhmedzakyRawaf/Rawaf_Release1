@@ -17,11 +17,12 @@ public class M001WelcomeScreenTest extends BaseTest {
     public void TC_Welcome01_validateRawafLogoDisplayed(){
         LandPage.checkRawafLogo();
     }
-    /*
+
     @Test(groups = "welcome")
     public void TC_Welcome02_validateSubTitleText(){
-        welcPage.checkSubTitleText();
+        LandPage.checkFAQ();
     }
+    /*
     @Test(groups = "welcome")
     public void TC_Welcome03_validateLoginToYourAccSubTitleText(){
         welcPage.checkLoginToYourAccountSubTitleText();
