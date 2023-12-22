@@ -146,6 +146,7 @@ private final By OtherProjectsArrow = By.linkText("بقية المشاريع");
             Thread.sleep(2000);
         }catch (Exception e){
             e.getStackTrace();
+
         }
         By clickable = By.xpath("//a[contains(@href, '/Interest/0/0')]");
         driver.findElement(clickable).click();
