@@ -62,14 +62,14 @@ public class BaseTest {
         takeScreenshot(result,driver);
         System.out.println("screenshot captured");
     }
-    @AfterClass(alwaysRun = true)
-        public void tearDown(){
-            if (driver != null){
-                driver.quit();
-            }
-            flushReport();
-        System.out.println("Report path is here:  " + reportName );
-
-        }
+//    @AfterClass(alwaysRun = true)
+//        public void tearDown(){
+//            if (driver != null){
+//                driver.quit();
+//            }
+//            flushReport();
+//        System.out.println("Report path is here:  " + reportName );
+//
+//        }
     }
 

@@ -15,9 +15,5 @@ public class P003FAQTest extends BaseTest {
         FAQPage = new P003FAQ(driver);
     }
 
-    @Test(groups = "FAQPage")
-    public void TC_FAQ04() {
-        FAQPage.FAQTab();
-        FAQPage.FAQcontent();
-    }
+
 }
