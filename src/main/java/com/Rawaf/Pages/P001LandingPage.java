@@ -4,7 +4,6 @@ package com.Rawaf.Pages;
 import com.Rawaf.PageBase.PageBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 
 
@@ -51,7 +50,7 @@ private final By OtherProjectsArrow = By.linkText("بقية المشاريع");
     }
 
     public void checkLandingScreen() {
-        clickOnelement(language);
+        clickOnElement(language);
         checkWelcomeSection();
         checkMapSection();
         howWorksSection();
@@ -84,11 +83,11 @@ private final By OtherProjectsArrow = By.linkText("بقية المشاريع");
     }
 
     private void checkFilterMAp() {
-        clickOnelement(checkBox);
+        clickOnElement(checkBox);
         Assert.assertTrue(assertElementDisplayed(red_Icon));
-        clickOnelement(RentRadioBTn);
-        clickOnelement(SaleRadioBtn);
-        clickOnelement(AllRadioBtn);
+        clickOnElement(RentRadioBTn);
+        clickOnElement(SaleRadioBtn);
+        clickOnElement(AllRadioBtn);
     }
 
     private void howWorksSection() {
@@ -123,11 +122,11 @@ private final By OtherProjectsArrow = By.linkText("بقية المشاريع");
         Assert.assertTrue(assertElementDisplayed(ProjectsMessage));
         Assert.assertTrue(checkForLocalization(ProjectsMessage,"At Rawaf, we provide a group of real estate residential projects for selling and renting units, with",
                 "نوفر في رواف مجموعة من المشاريع العقارية لبيع وإيجار الوحدات السكنية مقدمة من شبكة من المطورين العقا"));
-        clickOnelement(Main);
+        clickOnElement(Main);
         waitForVisibilityOfElement(Choose_Your_resident);
     }
     public void navigateToOtherProjects(){
-        waitForInVisibilityOfElement(Choose_Your_resident);
+        waitForVisibilityOfElement(Choose_Your_resident);
         try{
             Thread.sleep(2000);
         }catch (Exception e){
@@ -172,8 +171,28 @@ private final By OtherProjectsArrow = By.linkText("بقية المشاريع");
         driver.findElement(clickable).click();
         Assert.assertTrue(assertElementDisplayed(Register_Title));
         Assert.assertTrue(checkForLocalization(Register_Title,"Register Interest","تسجيل اهتمامك"));
-        clickOnelement(Main);
-        waitForInVisibilityOfElement(Choose_Your_resident);
+        clickOnElement(Main);
+        waitForVisibilityOfElement(Choose_Your_resident);
+    }
+    public void navigateToRegister(){
+        waitForVisibilityOfElement(Choose_Your_resident);
+        scrollToElement(Register);
+        try{
+            Thread.sleep(2000);
+        }catch (Exception e){
+            e.getStackTrace();
+
+        }
+        waitForVisibilityOfElement(Register);
+        By clickable = By.xpath("//a[contains(@href, '/Interest/0/0')]");
+        driver.findElement(clickable).click();
+        Assert.assertTrue(assertElementDisplayed(Register_Title));
+        Assert.assertTrue(checkForLocalization(Register_Title,"Register Interest","تسجيل اهتمامك"));
+
+    }
+    public void backToMain(){
+        clickOnElement(Main);
+        waitForVisibilityOfElement(Choose_Your_resident);
     }
 }
 

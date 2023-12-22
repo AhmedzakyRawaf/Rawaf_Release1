@@ -6,9 +6,9 @@ import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
 
-public class P002AboutusPage extends PageBase {
+public class P004AboutusPage extends PageBase {
 
-    public P002AboutusPage(WebDriver driver) {
+    public P004AboutusPage(WebDriver driver) {
         super(driver);
     }
     private final By Main = By.xpath("//a[normalize-space()='Home' or contains(text(),'الرئيسية')]");
@@ -57,6 +57,6 @@ public class P002AboutusPage extends PageBase {
         Assert.assertTrue(checkForLocalization(HowWorks , "How Platform Works" , "كيف تعمل المنصة"));
     }
     private void navigateToAboutUsScreen(){
-        clickOnelement(About_Us);
+        clickOnElement(About_Us);
     }
 }

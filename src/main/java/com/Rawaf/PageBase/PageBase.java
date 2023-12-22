@@ -7,7 +7,6 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
-import java.security.spec.ECField;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -22,22 +21,9 @@ public class PageBase {
         this.driver = driver;
     }
     public By language = By.xpath("(//button[@class='text-white rounded-lg bg-primary-600'])[1]");
-    public By myAccount = By.xpath("//a[@id='menu-drop']//*[name()='svg']");
-    public By logout = By.xpath("//a[@class='dropdown-item logout-color']");
-    public By Success_Message = By.xpath("//p[text()='تم إنشاء السجل.' or text()='The record has been created.']") ;
-    public By Linked_Success_Message = By.xpath("//p[text()='تم ربط السجلات.' or text()='The records have been linked.']") ;
-    public By Unlinked_Success_Message = By.xpath("//p[text()='تم إلغاء ربط السجل.' or text()='The record has been unlinked.']") ;
-    public By Success_Update_Message = By.xpath("//p[text()='تم تحديث السجل.' or text()='The record has been updated.']");
-    public By Confirm_Delete_Message = By.xpath("//p[text()='تم حذف السجل.' or text()='The record has been deleted.']");
 
-    public void backToLoinScreen(){
-        scrollToElement(myAccount);
-        clickOnelement(myAccount);
-        clickOnelement(logout);
-        Assert.assertTrue(driver.getCurrentUrl().contains("login"));
 
-    }
-    public void clickOnelement(By by){
+    public void clickOnElement(By by){
         waitForVisibilityOfElement(by);
         driver.findElement(by).click();
 
@@ -136,8 +122,8 @@ public class PageBase {
     }
     public void validateErrorMessage(By inputField , By secondInput , By Message){
         scrollToElement(inputField);
-        clickOnelement(inputField);
-        clickOnelement(secondInput);
+        clickOnElement(inputField);
+        clickOnElement(secondInput);
         Assert.assertTrue(assertElementDisplayed(Message));
     }
     public void clickOnElementIdUsingJS(String id){
@@ -184,31 +170,7 @@ public class PageBase {
 
         return "+201" + formattedNumber;
     }
-    public void validateSuccessMessage(){
-        Assert.assertTrue(assertElementDisplayed(Success_Message));
-        waitForInVisibilityOfElement(Success_Message);
 
-    }
-    public void validateUpdateMessage(){
-        Assert.assertTrue(assertElementDisplayed(Success_Update_Message));
-        waitForInVisibilityOfElement(Success_Update_Message);
-
-    }
-    public void validateLinkedSuccessMessage(){
-        Assert.assertTrue(assertElementDisplayed(Linked_Success_Message));
-        waitForInVisibilityOfElement(Linked_Success_Message);
-
-    }
-    public void validateUnLinkedSuccessMessage(){
-        Assert.assertTrue(assertElementDisplayed(Unlinked_Success_Message));
-        waitForInVisibilityOfElement(Unlinked_Success_Message);
-
-    }
-    public void validateDeletedMessage(){
-        Assert.assertTrue(assertElementDisplayed(Confirm_Delete_Message));
-        waitForInVisibilityOfElement(Confirm_Delete_Message);
-
-    }
     public static String generateRandomDigits(int length) {
         if (length <= 0) {
             throw new IllegalArgumentException("Length should be greater than 0");
@@ -225,7 +187,7 @@ public class PageBase {
         return stringBuilder.toString();
     }
     public  void selectEnglish(){
-        clickOnelement(language);
+        clickOnElement(language);
         try{
             Thread.sleep(2000);
         }catch (Exception e){

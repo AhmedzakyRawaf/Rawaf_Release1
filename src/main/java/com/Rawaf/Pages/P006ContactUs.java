@@ -5,7 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
-public class P005ContactUs extends PageBase {
+public class P006ContactUs extends PageBase {
 
 
     private final By ContactUs_tab = By.linkText("تواصل معنا");
@@ -22,7 +22,7 @@ public class P005ContactUs extends PageBase {
     private final By OTP5 = By.xpath(" //input[@name='digit5']");
     private final By Verify = By.xpath(" //*[@id=root]/div[1]/div[1]/main/div/div/div/div/div/form/div[3]/button[1]/div/div");
 
-    public P005ContactUs(WebDriver driver) {
+    public P006ContactUs(WebDriver driver) {
         super(driver);
     }
 
@@ -30,14 +30,14 @@ public class P005ContactUs extends PageBase {
     public void ClickContactUs() throws InterruptedException {
         waitForVisibilityOfElement(ContactUs_tab);
         Assert.assertTrue(driver.findElement(ContactUs_tab).isDisplayed());
-        clickOnelement(ContactUs_tab);
+        clickOnElement(ContactUs_tab);
         sendKeysWithJs(Name, "Ahmed");
         sendKeysWithJs(Mobile, "0565656565");
         sendKeysWithJs(Email, "a@a.com");
-        clickOnelement(Suggestion);
+        clickOnElement(Suggestion);
         sendKeysWithJs(Text, "ZakyAutomationsTest");
         Thread.sleep(10);
-        clickOnelement(Submit);
+        clickOnElement(Submit);
 
 
 /*
