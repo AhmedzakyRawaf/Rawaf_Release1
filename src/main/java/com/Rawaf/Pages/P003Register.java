@@ -19,31 +19,33 @@ public class P003Register extends PageBase {
     private final By Submit = By.xpath("//div[@type='submit']");
     private final By Error_Message = By.xpath("//p[@class='text-xs text-red-600']");
 
-    private void checkRegisterView(){
+    private void checkRegisterView() {
         Assert.assertTrue(assertElementDisplayed(Label_First_Name));
-        Assert.assertTrue(checkForLocalization(Label_First_Name,"First Name","اسمك الأول"));
+        Assert.assertTrue(checkForLocalization(Label_First_Name, "First Name", "اسمك الأول"));
         Assert.assertTrue(assertElementDisplayed(Label_Last_Name));
-        Assert.assertTrue(checkForLocalization(Label_Last_Name,"Last Name","اسمك الأخير"));
+        Assert.assertTrue(checkForLocalization(Label_Last_Name, "Last Name", "اسمك الأخير"));
         Assert.assertTrue(assertElementDisplayed(Label_Mobile));
-        Assert.assertTrue(checkForLocalization(Label_Mobile,"Mobile Number","الجوال"));
+        Assert.assertTrue(checkForLocalization(Label_Mobile, "Mobile Number", "الجوال"));
         Assert.assertTrue(assertElementDisplayed(Input_First_Name));
         Assert.assertTrue(assertElementDisplayed(Input_Last_Name));
         Assert.assertTrue(assertElementDisplayed(Input_Mobile));
         Assert.assertTrue(assertElementDisplayed(Submit));
-        Assert.assertTrue(checkForLocalization(Submit,"Verify","تحقق من الجوال"));
+        Assert.assertTrue(checkForLocalization(Submit, "Verify", "تحقق من الجوال"));
     }
-    public void checkRegisterScreen(String firstname , String lastname , String Mobile_Number){
+
+    public void checkRegisterScreen(String firstname, String lastname, String Mobile_Number) {
         checkRegisterView();
-        fillRegisterForm(firstname , lastname,Mobile_Number);
+        fillRegisterForm(firstname, lastname, Mobile_Number);
     }
-    private void fillRegisterForm(String firstname , String lastname , String Mobile_Number){
-        sendTextToInputField(firstname , Input_First_Name);
-        sendTextToInputField(lastname , Input_Last_Name);
-        sendTextToInputField("01270020414" , Input_Mobile);
+
+    private void fillRegisterForm(String firstname, String lastname, String Mobile_Number) {
+        sendTextToInputField(firstname, Input_First_Name);
+        sendTextToInputField(lastname, Input_Last_Name);
+        sendTextToInputField("01270020414", Input_Mobile);
         clickOnElement(Submit);
         Assert.assertTrue(assertElementDisplayed(Error_Message));
-        Assert.assertTrue(checkForLocalization(Error_Message,"Invalid Number","رقم الجوال غير صحيح"));
-        sendTextToInputField(Mobile_Number , Input_Mobile);
+        Assert.assertTrue(checkForLocalization(Error_Message, "Invalid Number", "رقم الجوال غير صحيح"));
+        sendTextToInputField(Mobile_Number, Input_Mobile);
         clickOnElement(Submit);
     }
 

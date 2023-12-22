@@ -8,51 +8,62 @@ import org.testng.Assert;
 public class P006ContactUs extends PageBase {
 
 
-    private final By ContactUs_tab = By.linkText("تواصل معنا");
-    private final By Name = By.xpath("//input[@name='name']");
-    private final By Mobile = By.xpath("//input[@name='mobileNumber']");
-    private final By Email = By.xpath("//input[@name='email']");
-    private final By Suggestion = By.xpath("//option[text()='شكوى']");
-    private final By Text = By.xpath("//div[contains(@class, 'Input')]//textarea[@name='content']");
-    private final By Submit = By.xpath("//button[@fdprocessedid='nzc42']");
-    private final By OTP1 = By.xpath(" //input[@name='digit1']");
-    private final By OTP2 = By.xpath(" //input[@name='digit2']");
-    private final By OTP3 = By.xpath(" //input[@name='digit3']");
-    private final By OTP4 = By.xpath(" //input[@name='digit4']");
-    private final By OTP5 = By.xpath(" //input[@name='digit5']");
-    private final By Verify = By.xpath(" //*[@id=root]/div[1]/div[1]/main/div/div/div/div/div/form/div[3]/button[1]/div/div");
-
     public P006ContactUs(WebDriver driver) {
         super(driver);
     }
 
+    private final By Complains_Title = By.xpath("//body//div//h1[1]");
+    private final By Label_Name = By.xpath("//div[contains(text(),'Name') or contains(text(),'الاسم')]");
+    private final By Label_Mobile = By.xpath("//div[contains(text(),'Mobile Number') or contains(text(),'الجوال')]");
+    private final By Label_Mail = By.xpath("//div[contains(text(),'Email') or contains(text(),'البريد الإلكتروني')]");
+    private final By Label_contact_Type = By.xpath("//div[contains(text(),'Contact Type') or contains(text(),'نوع التواصل')]");
+    private final By Label_Message = By.xpath("//div[contains(text(),'Contact Message') or contains(text(),'نص الرسالة')]");
+    private final By Send = By.xpath("//button[normalize-space()='Send' or contains(text(),'ارسال')]");
+    private final By Input_Name = By.xpath("//input[@name='name']");
+    private final By Input_Mobile = By.xpath("//input[@name='mobileNumber']");
+    private final By Input_Email = By.xpath("//input[@name='email']");
+    private final By Input_Message = By.xpath("//textarea[@name='content']");
+    private final By select_Category = By.xpath("//select[@name='categoryId']");
 
-    public void ClickContactUs() throws InterruptedException {
-        waitForVisibilityOfElement(ContactUs_tab);
-        Assert.assertTrue(driver.findElement(ContactUs_tab).isDisplayed());
-        clickOnElement(ContactUs_tab);
-        sendKeysWithJs(Name, "Ahmed");
-        sendKeysWithJs(Mobile, "0565656565");
-        sendKeysWithJs(Email, "a@a.com");
-        clickOnElement(Suggestion);
-        sendKeysWithJs(Text, "ZakyAutomationsTest");
-        Thread.sleep(10);
-        clickOnElement(Submit);
 
-
-/*
-
-        waitForVisibilityOfElement(OTP1);
-        sendKeysWithJs(OTP1,"1");
-        sendKeysWithJs(OTP2,"1");
-        sendKeysWithJs(OTP3,"1");
-        sendKeysWithJs(OTP4,"1");
-        sendKeysWithJs(OTP5,"1");
-        clickOnelement(Verify);
-
-*/
+    private void validateEachElement(By by) {
+        scrollToElement(by);
+        Assert.assertTrue(assertElementDisplayed(by));
     }
 
+    private void checkContactUsElements() {
+        validateEachElement(Complains_Title);
+        Assert.assertTrue(checkForLocalization(Complains_Title, "For Complaints and Suggestions", "للشكاوى والاقتراحات"));
+        validateEachElement(Label_Name);
+        validateEachElement(Label_Mail);
+        validateEachElement(Label_Mobile);
+        validateEachElement(Label_Message);
+        validateEachElement(Label_contact_Type);
+        validateEachElement(Send);
+    }
+
+    private void checkInputFields() {
+        validateEachElement(Input_Name);
+        validateEachElement(Input_Email);
+        validateEachElement(Input_Message);
+        validateEachElement(Input_Mobile);
+        validateEachElement(select_Category);
+    }
+
+    public void checkContactUsScreen(String email, String mobile, String message, String name) {
+        checkContactUsElements();
+        checkInputFields();
+        fillContactUsForm(email, mobile, message, name);
+        clickOnElement(Send);
+    }
+
+    private void fillContactUsForm(String email, String mobile, String message, String name) {
+        sendTextToInputField(email, Input_Email);
+        sendTextToInputField(name, Input_Name);
+        sendTextToInputField(mobile, Input_Mobile);
+        sendTextToInputField(message, Input_Message);
+        selectByIndexFromDropDownList(select_Category, "1");
+    }
 
 
 }

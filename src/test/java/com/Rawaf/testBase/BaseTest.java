@@ -52,24 +52,25 @@ public class BaseTest {
     }
 
 
-
     @BeforeMethod(alwaysRun = true)
     public void beforMethod(Method method) throws IOException {
-       beforeMethod(method);
+        beforeMethod(method);
     }
+
     @AfterMethod(alwaysRun = true)
     public void takeScreenShot(ITestResult result) throws IOException, InterruptedException {
-        takeScreenshot(result,driver);
+        takeScreenshot(result, driver);
         System.out.println("screenshot captured");
     }
-//    @AfterClass(alwaysRun = true)
-//        public void tearDown(){
-//            if (driver != null){
-//                driver.quit();
-//            }
-//            flushReport();
-//        System.out.println("Report path is here:  " + reportName );
-//
-//        }
+
+    @AfterClass(alwaysRun = true)
+    public void tearDown() {
+        if (driver != null) {
+            driver.quit();
+        }
+        flushReport();
+        System.out.println("Report path is here:  " + reportName);
+
     }
+}
 

@@ -9,13 +9,15 @@ import org.testng.annotations.Test;
 public class M002OtherProjectsTest extends BaseTest {
     P001LandingPage landPage;
     P002OtherProjects projects;
+
     @BeforeClass
-    public void initiateObject(){
+    public void initiateObject() {
         landPage = new P001LandingPage(driver);
         projects = new P002OtherProjects(driver);
     }
+
     @Test
-    public void validateProjectsScreen(){
+    public void validateProjectsScreen() {
         landPage.navigateToOtherProjects();
         projects.checkProjectsScreen();
         landPage.backToMain();

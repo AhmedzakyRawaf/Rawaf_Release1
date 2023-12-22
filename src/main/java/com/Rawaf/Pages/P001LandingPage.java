@@ -42,7 +42,10 @@ public class P001LandingPage extends PageBase {
     private final By SecondProject = By.xpath("(//img[contains(@alt,'دار بيات للتطوير والاستثمار العقاري')])[1]");
     private final By ThirdProject = By.xpath("(//img[contains(@alt,'دار بيات للتطوير والاستثمار العقاري')])[3]");
     private final By Register = By.xpath("//div[@class=\"text-center text-white text-base font-bold font-['Loew Next Arabic'] leading-7\"]");
-private final By OtherProjectsArrow = By.linkText("بقية المشاريع");
+    private final By FAQ_Title = By.xpath("//h1[normalize-space()='FAQs' or contains(text(),'الأسئلة الأكثر شيوعاً')]");
+    private final By Complains_Title = By.xpath("//body//div//h1[1]");
+
+    private final By OtherProjectsArrow = By.linkText("بقية المشاريع");
 
     private void checkEachElement(By by) {
         scrollToElement(by);
@@ -110,38 +113,41 @@ private final By OtherProjectsArrow = By.linkText("بقية المشاريع");
         checkEachElement(SecondProject);
         checkEachElement(ThirdProject);
     }
+
     private final By ProjectsMessage = By.xpath("//div[@class=\"self-stretch text-slate-500 text-base font-medium font-['Loew Next Arabic'] leading-7\"]");
-    private void checkOtherProjectsNavigation(){
+
+    private void checkOtherProjectsNavigation() {
         waitForVisibilityOfElement(OtherProjectLink);
-        try{
+        try {
             Thread.sleep(2000);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.getStackTrace();
         }
         driver.findElement(By.xpath("//a[contains(@class, 'text-right') and @href='/projects']")).click();
         Assert.assertTrue(assertElementDisplayed(ProjectsMessage));
-        Assert.assertTrue(checkForLocalization(ProjectsMessage,"At Rawaf, we provide a group of real estate residential projects for selling and renting units, with",
+        Assert.assertTrue(checkForLocalization(ProjectsMessage, "At Rawaf, we provide a group of real estate residential projects for selling and renting units, with",
                 "نوفر في رواف مجموعة من المشاريع العقارية لبيع وإيجار الوحدات السكنية مقدمة من شبكة من المطورين العقا"));
         clickOnElement(Main);
         waitForVisibilityOfElement(Choose_Your_resident);
     }
-    public void navigateToOtherProjects(){
+
+    public void navigateToOtherProjects() {
         waitForVisibilityOfElement(Choose_Your_resident);
-        try{
+        try {
             Thread.sleep(2000);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.getStackTrace();
         }
         scrollToElement(OtherProjectLink);
         waitForVisibilityOfElement(OtherProjectLink);
-        try{
+        try {
             Thread.sleep(2000);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.getStackTrace();
         }
         driver.findElement(By.xpath("//a[contains(@class, 'text-right') and @href='/projects']")).click();
         Assert.assertTrue(assertElementDisplayed(ProjectsMessage));
-        Assert.assertTrue(checkForLocalization(ProjectsMessage,"At Rawaf, we provide a group of real estate residential projects for selling and renting units, with",
+        Assert.assertTrue(checkForLocalization(ProjectsMessage, "At Rawaf, we provide a group of real estate residential projects for selling and renting units, with",
                 "نوفر في رواف مجموعة من المشاريع العقارية لبيع وإيجار الوحدات السكنية مقدمة من شبكة من المطورين العقا"));
 
     }
@@ -158,28 +164,31 @@ private final By OtherProjectsArrow = By.linkText("بقية المشاريع");
         checkEachElement(Register);
         Assert.assertTrue(checkForLocalization(Register, "Register Interest", "تسجيل الإهتمام"));
     }
+
     private final By Register_Title = By.xpath("(//h1[contains(@class,'font-extrabold text-2xl text-[#525AA4]')])[1]");
-    private void checkRegisterNavigation(){
+
+    private void checkRegisterNavigation() {
         waitForVisibilityOfElement(Register);
-        try{
+        try {
             Thread.sleep(2000);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.getStackTrace();
 
         }
         By clickable = By.xpath("//a[contains(@href, '/Interest/0/0')]");
         driver.findElement(clickable).click();
         Assert.assertTrue(assertElementDisplayed(Register_Title));
-        Assert.assertTrue(checkForLocalization(Register_Title,"Register Interest","تسجيل اهتمامك"));
+        Assert.assertTrue(checkForLocalization(Register_Title, "Register Interest", "تسجيل اهتمامك"));
         clickOnElement(Main);
         waitForVisibilityOfElement(Choose_Your_resident);
     }
-    public void navigateToRegister(){
+
+    public void navigateToRegister() {
         waitForVisibilityOfElement(Choose_Your_resident);
         scrollToElement(Register);
-        try{
+        try {
             Thread.sleep(2000);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.getStackTrace();
 
         }
@@ -187,12 +196,26 @@ private final By OtherProjectsArrow = By.linkText("بقية المشاريع");
         By clickable = By.xpath("//a[contains(@href, '/Interest/0/0')]");
         driver.findElement(clickable).click();
         Assert.assertTrue(assertElementDisplayed(Register_Title));
-        Assert.assertTrue(checkForLocalization(Register_Title,"Register Interest","تسجيل اهتمامك"));
+        Assert.assertTrue(checkForLocalization(Register_Title, "Register Interest", "تسجيل اهتمامك"));
 
     }
-    public void backToMain(){
+
+    public void backToMain() {
         clickOnElement(Main);
         waitForVisibilityOfElement(Choose_Your_resident);
+    }
+
+    public void navigateToFAQs() {
+        Assert.assertTrue(assertElementDisplayed(Choose_Your_resident));
+        clickOnElement(FAQs);
+        Assert.assertTrue(assertElementDisplayed(FAQ_Title));
+    }
+
+    public void navigateToContactUs() {
+
+        Assert.assertTrue(assertElementDisplayed(Choose_Your_resident));
+        clickOnElement(Contact_US);
+        Assert.assertTrue(assertElementDisplayed(Complains_Title));
     }
 }
 

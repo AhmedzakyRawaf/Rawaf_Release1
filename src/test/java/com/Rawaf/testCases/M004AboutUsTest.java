@@ -12,8 +12,9 @@ public class M004AboutUsTest extends BaseTest {
     public void initiateObject() {
         about = new P004AboutusPage(driver);
     }
+
     @Test
-    public void validateAboutScreen(){
+    public void validateAboutScreen() {
         about.checkAboutScreen();
     }
 

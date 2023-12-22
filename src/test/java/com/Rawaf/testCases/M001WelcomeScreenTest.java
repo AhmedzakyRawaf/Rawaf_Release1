@@ -7,12 +7,14 @@ import org.testng.annotations.Test;
 
 public class M001WelcomeScreenTest extends BaseTest {
     P001LandingPage landPage;
+
     @BeforeClass
-    public void initiateObject(){
+    public void initiateObject() {
         landPage = new P001LandingPage(driver);
     }
-   @Test
-    public void validateWelcomeScreen(){
+
+    @Test
+    public void validateWelcomeScreen() {
         landPage.checkLandingScreen();
-   }
+    }
 }

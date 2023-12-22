@@ -11,6 +11,7 @@ public class P004AboutusPage extends PageBase {
     public P004AboutusPage(WebDriver driver) {
         super(driver);
     }
+
     private final By Main = By.xpath("//a[normalize-space()='Home' or contains(text(),'الرئيسية')]");
     private final By About_Us = By.xpath("//a[normalize-space()='About Us' or contains(text(),'عن المنصة')]");
     private final By Projects = By.xpath("//a[normalize-space()='Projects' or contains(text(),'المشاريع')]");
@@ -27,12 +28,12 @@ public class P004AboutusPage extends PageBase {
     private final By HowWorks = By.xpath("//div[contains(@class,\"grow shrink basis-0 text-indigo-900 text-2xl font-bold font-['Loew Next Arabic']\")]");
 
 
-
-    private void checkEachElement(By by){
+    private void checkEachElement(By by) {
         scrollToElement(by);
         Assert.assertTrue(assertElementDisplayed(by));
     }
-    public void checkAboutScreen(){
+
+    public void checkAboutScreen() {
         navigateToAboutUsScreen();
         checkEachElement(Main);
         checkEachElement(About_Us);
@@ -41,22 +42,23 @@ public class P004AboutusPage extends PageBase {
         checkEachElement(Contact_US);
         checkEachElement(Second_Logo);
         checkEachElement(About_Rawaf_Qoute);
-        Assert.assertTrue(checkForLocalization(About_Rawaf_Qoute,"Rawaf is a Saudi platform" , "رواف هي منصة سعودية تعمل على تقديم تجربة مثرية"));
+        Assert.assertTrue(checkForLocalization(About_Rawaf_Qoute, "Rawaf is a Saudi platform", "رواف هي منصة سعودية تعمل على تقديم تجربة مثرية"));
         checkEachElement(About_Rawaf);
-        Assert.assertTrue(checkForLocalization(About_Rawaf,"About Rawaf" , "عن رواف"));
+        Assert.assertTrue(checkForLocalization(About_Rawaf, "About Rawaf", "عن رواف"));
         checkEachElement(Verify_Mark);
         checkEachElement(Mission_Title);
         checkEachElement(Mission_Body);
-        Assert.assertTrue(checkForLocalization(Mission_Body,"To be the leading real estate platform in providing residential units in the Kingdom of Saudi Arabia" ,
+        Assert.assertTrue(checkForLocalization(Mission_Body, "To be the leading real estate platform in providing residential units in the Kingdom of Saudi Arabia",
                 "أن نكون المنصة العقارية الرائدة في توفير الوحدات السكنية في المملكة العربية السعودية"));
         checkEachElement(Vision_Title);
         checkEachElement(Vision_Body);
-        Assert.assertTrue(checkForLocalization(Vision_Body ,"Providing residential solutions by offering and purchasing real estate products with ease" ,
+        Assert.assertTrue(checkForLocalization(Vision_Body, "Providing residential solutions by offering and purchasing real estate products with ease",
                 "توفير الحلول السكنية من خلال عرض وشراء المنتجات العقارية بكل يسر وسهولة"));
         checkEachElement(HowWorks);
-        Assert.assertTrue(checkForLocalization(HowWorks , "How Platform Works" , "كيف تعمل المنصة"));
+        Assert.assertTrue(checkForLocalization(HowWorks, "How Platform Works", "كيف تعمل المنصة"));
     }
-    private void navigateToAboutUsScreen(){
+
+    private void navigateToAboutUsScreen() {
         clickOnElement(About_Us);
     }
 }
