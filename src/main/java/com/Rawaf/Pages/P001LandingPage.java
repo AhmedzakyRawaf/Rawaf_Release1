@@ -126,6 +126,26 @@ private final By OtherProjectsArrow = By.linkText("بقية المشاريع");
         clickOnelement(Main);
         waitForVisibilityOfElement(Choose_Your_resident);
     }
+    public void navigateToOtherProjects(){
+        waitForInVisibilityOfElement(Choose_Your_resident);
+        try{
+            Thread.sleep(2000);
+        }catch (Exception e){
+            e.getStackTrace();
+        }
+        scrollToElement(OtherProjectLink);
+        waitForVisibilityOfElement(OtherProjectLink);
+        try{
+            Thread.sleep(2000);
+        }catch (Exception e){
+            e.getStackTrace();
+        }
+        driver.findElement(By.xpath("//a[contains(@class, 'text-right') and @href='/projects']")).click();
+        Assert.assertTrue(assertElementDisplayed(ProjectsMessage));
+        Assert.assertTrue(checkForLocalization(ProjectsMessage,"At Rawaf, we provide a group of real estate residential projects for selling and renting units, with",
+                "نوفر في رواف مجموعة من المشاريع العقارية لبيع وإيجار الوحدات السكنية مقدمة من شبكة من المطورين العقا"));
+
+    }
 
 
     private void checkPartnersSection() {
