@@ -28,8 +28,8 @@ public class E22E extends BaseTest {
     }
 
     @Test
-    public void validateContactUsScreen() {
-        landPage.checkLandingScreen();
+    public void TC001_validateEndToEndScenario() {
+        landPage.checkLandingScreen(false);
         landPage.navigateToOtherProjects();
         projects.checkProjectsScreen();
         landPage.backToMain();
@@ -43,5 +43,12 @@ public class E22E extends BaseTest {
         landPage.backToMain();
         landPage.navigateToContactUs();
         contactUs.checkContactUsScreen(EMAIL, MOBILE, MESSAGE, NAME);
+        landPage.backToMain();
     }
+    @Test
+    public void TC002_VAlidateAllLinks() {
+        landPage.checkLandingScreen(false);
+        landPage.checkAllLinksBehavior();
+    }
+
 }

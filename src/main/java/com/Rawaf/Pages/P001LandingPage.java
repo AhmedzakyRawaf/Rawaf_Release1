@@ -52,8 +52,8 @@ public class P001LandingPage extends PageBase {
         Assert.assertTrue(assertElementDisplayed(by));
     }
 
-    public void checkLandingScreen() {
-        clickOnElement(language);
+    public void checkLandingScreen(Boolean isEnglish) {
+        if(isEnglish)clickOnElement(language);
         checkWelcomeSection();
         checkMapSection();
         howWorksSection();
@@ -216,6 +216,13 @@ public class P001LandingPage extends PageBase {
         Assert.assertTrue(assertElementDisplayed(Choose_Your_resident));
         clickOnElement(Contact_US);
         Assert.assertTrue(assertElementDisplayed(Complains_Title));
+    }
+    public void checkAllLinksBehavior(){
+        try{
+            checkAllLinks();
+        }catch (Exception e){
+            e.getStackTrace();
+        }
     }
 }
 

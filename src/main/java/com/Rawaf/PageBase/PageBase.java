@@ -104,6 +104,31 @@ public class PageBase {
         Select select = new Select(selectElement);
         select.selectByIndex(Integer.parseInt(index));
     }
+    public   void checkAllLinks() {
+        java.util.List<WebElement> links = driver.findElements(By.tagName("a"));
+
+        for (int i = 0; i < links.size(); i++) {
+            WebElement link = driver.findElements(By.tagName("a")).get(i);
+            String url = link.getAttribute("href");
+
+            try {
+                // Click the link to check if it works
+                link.click();
+                System.out.println("Link works: " + url);
+            } catch (StaleElementReferenceException e) {
+                // Handle StaleElementReferenceException by finding the link again
+                link = driver.findElements(By.tagName("a")).get(i);
+                link.click();
+                System.out.println("Link works (after stale element): " + url);
+            } catch (Exception e) {
+                // Handle other exceptions
+                System.out.println("Link does not work: " + url);
+            }
+
+            driver.navigate().back();
+        }
+    }
+
 
 
 }

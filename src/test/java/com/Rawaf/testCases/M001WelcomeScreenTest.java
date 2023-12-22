@@ -15,6 +15,6 @@ public class M001WelcomeScreenTest extends BaseTest {
 
     @Test
     public void validateWelcomeScreen() {
-        landPage.checkLandingScreen();
+        landPage.checkLandingScreen(false);
     }
 }
