@@ -1,5 +1,5 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Kobra_Fooder_Cross_Browsers" >
+<suite name="Rawaf_Cross_Browsers" >
     <test name="ChromeTest">
         <parameter name="browser" value="chrome" />
         <classes>
