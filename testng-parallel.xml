@@ -13,15 +13,5 @@
             <class name="com.Rawaf.testCases.E22E" />
         </classes>
     </test>
-<!--    <test name="fireFoxTest">-->
-<!--        <parameter name="browser" value="firefox" />-->
-<!--        <classes>-->
-<!--            <class name="com.fooder.testCases.M001WelcomeScreenTest" />-->
-<!--            <class name="com.fooder.testCases.M002DashboardScreenTest" />-->
-<!--            <class name="com.fooder.testCases.M003DashboardSettingsTest" />-->
-<!--            <class name="com.fooder.testCases.M004BranchesTest" />-->
-<!--            <class name="com.fooder.testCases.M005DeliveryAreaTest" />-->
-<!--            <class name="com.fooder.testCases.M006EditBranchTest" />-->
-<!--        </classes>-->
-<!--    </test>-->
+
 </suite>
