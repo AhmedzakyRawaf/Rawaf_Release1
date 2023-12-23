@@ -13,11 +13,14 @@ public class P003Register extends PageBase {
     private final By Label_First_Name = By.xpath("//div[contains(text(),'First Name') or contains(text(),'اسمك الأول')]");
     private final By Label_Last_Name = By.xpath("//div[contains(text(),'Last Name') or contains(text(),'اسمك الأخير')]");
     private final By Label_Mobile = By.xpath("//div[contains(text(),'Mobile Number') or contains(text(),'الجوال')]");
-    private final By Input_First_Name = By.xpath("//input[@name='firstName']");
-    private final By Input_Last_Name = By.xpath("//input[@name='lastName']");
-    private final By Input_Mobile = By.xpath("//input[@name='phoneNumber']");
+    public final By Input_First_Name = By.xpath("//input[@name='firstName']");
+    public final By Input_Last_Name = By.xpath("//input[@name='lastName']");
+    public final By Input_Mobile = By.xpath("//input[@name='phoneNumber']");
     private final By Submit = By.xpath("//div[@type='submit']");
     private final By Error_Message = By.xpath("//p[@class='text-xs text-red-600']");
+    public final By VerifyCTA = By.xpath("(//button[@class='flex w-[80%] mx-auto md:mx-0 items-center justify-center gap-4 md:w-[122px] h-[36px] bg-indigo-800 rounded-lg opacity-50 MainButtonUse'])[1]");
+    private final By Success_Message = By.xpath("//div[@class=\"text-right text-slate-900 text-sm font-extrabold font-['Loew Next Arabic'] leading-loose\"]");
+
 
     private void checkRegisterView() {
         Assert.assertTrue(assertElementDisplayed(Label_First_Name));
@@ -47,7 +50,23 @@ public class P003Register extends PageBase {
         Assert.assertTrue(checkForLocalization(Error_Message, "Invalid Number", "رقم الجوال غير صحيح"));
         sendTextToInputField(Mobile_Number, Input_Mobile);
         clickOnElement(Submit);
+        insertOtc();
+        validateSuccessMessage();
     }
 
+    public void insertOtc() {
+        for (int i = 1; i < 6; i++) {
+            By input = By.xpath("(//input[@name='digit" + i + "'])[1]");
+            sendTextToInputField("1", input);
+        }
+        clickOnElement(VerifyCTA);
+
+    }
+
+
+    public void validateSuccessMessage() {
+        Assert.assertTrue(assertElementDisplayed(Success_Message));
+        waitForInVisibilityOfElement(Success_Message);
+    }
 
 }

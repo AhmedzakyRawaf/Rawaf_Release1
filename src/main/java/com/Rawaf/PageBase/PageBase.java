@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
+import java.net.URI;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -60,10 +61,26 @@ public class PageBase {
         JavascriptExecutor jsExec = (JavascriptExecutor) driver;
         jsExec.executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", driver.findElement(element));
     }
+    public void scrollToElementTop(By element) {
+        WebElement webElement = driver.findElement(element);
+        JavascriptExecutor jsExec = (JavascriptExecutor) driver;
+        jsExec.executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'start', inline: 'nearest'});", webElement);
+    }
+    public void scrollUpToElement(By element) {
+        WebElement webElement = driver.findElement(element);
+        JavascriptExecutor jsExec = (JavascriptExecutor) driver;
+        jsExec.executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'end', inline: 'nearest'});", webElement);
+    }
+
+
 
     public void scrollUp() {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollBy(0, -500);");
+    }
+    public void scrollDown() {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0, 3000);");
     }
 
     public void scrollToEndOfScreen() {
@@ -129,6 +146,22 @@ public class PageBase {
         }
     }
 
+    public  String getPAth(String URL){
+           try {
+               URI uri = new URI(URL);
+            String path = uri.getPath();
+            System.out.println("Extracted Path: " + path);
+               return path;
+           }catch (Exception e){
+               e.getStackTrace();
+               return null;
+           }
 
+    }
+    public  double extractNumericValue(String input) {
+        String numericString = input.replaceAll("[^\\d.]", "");
+
+        return Double.parseDouble(numericString);
+    }
 
 }

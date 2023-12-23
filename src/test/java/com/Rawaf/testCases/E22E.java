@@ -1,6 +1,5 @@
 package com.Rawaf.testCases;
 
-import com.Rawaf.PageBase.PageBase;
 import com.Rawaf.Pages.*;
 import com.Rawaf.testBase.BaseTest;
 import org.testng.annotations.BeforeClass;
@@ -31,7 +30,6 @@ public class E22E extends BaseTest {
     public void TC001_validateEndToEndScenario() {
         landPage.checkLandingScreen(false);
         landPage.navigateToOtherProjects();
-        projects.checkProjectsScreen();
         landPage.backToMain();
         landPage.navigateToRegister();
         register.checkRegisterScreen(FIRST_NAME, LAST_NAME, MOBILE);
@@ -43,6 +41,9 @@ public class E22E extends BaseTest {
         landPage.backToMain();
         landPage.navigateToContactUs();
         contactUs.checkContactUsScreen(EMAIL, MOBILE, MESSAGE, NAME);
+        landPage.backToMain();
+        landPage.navigateToOtherProjects();
+        projects.checkProjectsScreenInterestedAndReserve(FIRST_NAME, LAST_NAME, MOBILE);
         landPage.backToMain();
     }
     @Test

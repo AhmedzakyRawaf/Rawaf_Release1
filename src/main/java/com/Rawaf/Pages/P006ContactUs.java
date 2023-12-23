@@ -24,6 +24,8 @@ public class P006ContactUs extends PageBase {
     private final By Input_Email = By.xpath("//input[@name='email']");
     private final By Input_Message = By.xpath("//textarea[@name='content']");
     private final By select_Category = By.xpath("//select[@name='categoryId']");
+    private final By VerifyCTA = By.xpath("(//button[@class='flex w-[80%] mx-auto md:mx-0 items-center justify-center gap-4 md:w-[122px] h-[36px] bg-indigo-800 rounded-lg opacity-50 MainButtonUse'])[1]");
+    private final By Success_Message = By.xpath("//div[@class=\"text-right text-slate-900 text-sm font-extrabold font-['Loew Next Arabic'] leading-loose\"]");
 
 
     private void validateEachElement(By by) {
@@ -55,6 +57,8 @@ public class P006ContactUs extends PageBase {
         checkInputFields();
         fillContactUsForm(email, mobile, message, name);
         clickOnElement(Send);
+        insertOtc();
+        validateSuccessMessage();
     }
 
     private void fillContactUsForm(String email, String mobile, String message, String name) {
@@ -63,6 +67,19 @@ public class P006ContactUs extends PageBase {
         sendTextToInputField(mobile, Input_Mobile);
         sendTextToInputField(message, Input_Message);
         selectByIndexFromDropDownList(select_Category, "1");
+    }
+    private void insertOtc(){
+        for(int i = 1 ; i < 6 ; i++){
+            By input = By.xpath("(//input[@name='digit" + i + "'])[1]");
+            sendTextToInputField("1",input);
+        }
+        clickOnElement(VerifyCTA);
+
+    }
+
+    private void validateSuccessMessage() {
+        Assert.assertTrue(assertElementDisplayed(Success_Message));
+        waitForInVisibilityOfElement(Success_Message);
     }
 
 
