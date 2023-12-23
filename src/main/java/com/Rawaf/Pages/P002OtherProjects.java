@@ -216,7 +216,7 @@ public class P002OtherProjects extends PageBase {
 
     private void checkReserveUnit(String firstname, String lastname, String mobile) {
         try {
-            Thread.sleep(3000);
+            Thread.sleep(6000);
         } catch (Exception e) {
             e.getStackTrace();
         }
