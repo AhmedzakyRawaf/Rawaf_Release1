@@ -231,6 +231,12 @@ public class P002OtherProjects extends PageBase {
         clickOnElement(Cash);
         checkEachElement(Agree_Terms);
         clickOnElement(Agree_Terms);
+        try{
+            Thread.sleep(3000);
+        }catch (Exception e){
+            e.getStackTrace();
+        }
+
         checkEachElement(VerifyReserve);
         clickOnElement(VerifyReserve);
         register.insertOtc();
