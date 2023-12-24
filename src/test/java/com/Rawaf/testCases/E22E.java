@@ -26,6 +26,7 @@ public class E22E extends BaseTest {
         FAQPage = new P005FAQ(driver);
     }
 
+
     @Test
     public void TC001_validateEndToEndScenario() {
         landPage.checkLandingScreen(false);
