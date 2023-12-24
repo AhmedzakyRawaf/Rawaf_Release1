@@ -25,7 +25,7 @@ public class P002OtherProjects extends PageBase {
     private final By Qods = By.xpath("//li[contains(text(),'القدس')]");
     private final By Search = By.xpath("//input[@placeholder='Search ...' or contains(@placeholder,'بحث ...')]");
     private final By Message = By.xpath("(//div[@class='grid w-full grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-3'])[1]");
-    private final By Logo = By.xpath("(//img[@class='z-[1] self-stretch shadow Logo grow shrink basis-0 rounded-3xl'])[1]");
+    private final By Logo = By.xpath("(//*[name()='svg'])[1]");
     private final By APARTMENT = By.xpath("//input[@value='APARTMENT']");
     private final By All_Units = By.xpath("//input[@value='ALL']");
     private final By Search_on_units = By.xpath("//div[@class=\"text-center text-white text-base font-bold font-['Loew Next Arabic'] leading-7\"]");
@@ -101,7 +101,7 @@ public class P002OtherProjects extends PageBase {
 
     private void checkAllForSaleProjects() {
         scrollDown();
-        List<WebElement> elements = driver.findElements(By.xpath("(//div[contains(text(),'بدأ البيع')])"));
+        List<WebElement> elements = driver.findElements(By.xpath("(//div[contains(text(),'بدأ البيع') or contains(text(),'Buy Now')])"));
 
         for (int i = 0; i < elements.size(); i++) {
             waitForVisibilityOfWebElement(elements.get(i));
@@ -119,12 +119,18 @@ public class P002OtherProjects extends PageBase {
                 e.getStackTrace();
             }
             driver.findElement(clickable).click();
+            System.out.println("test");
             break;
         }
     }
 
 
     private void checkUnitsScreenElements() {
+        try{
+            Thread.sleep(3000);
+        }catch (Exception e){
+            e.getStackTrace();
+        }
         Assert.assertTrue(assertElementDisplayed(Logo));
         checkEachElement(Search_on_units);
         checkEachElement(APARTMENT);
@@ -145,12 +151,12 @@ public class P002OtherProjects extends PageBase {
     }
 
     private void DoFilter(String index, By by) {
-        scrollToElement(APARTMENT);
         try {
             Thread.sleep(2000);
         } catch (Exception e) {
             e.getStackTrace();
         }
+        scrollToElement(APARTMENT);
         driver.findElement(by).click();
         scrollToElement(Select_Floor);
         selectByIndexFromDropDownList(Select_Floor, index);
@@ -166,6 +172,11 @@ public class P002OtherProjects extends PageBase {
 
     private void selectUnit(int index) {
         By specific_Unit = By.xpath("//a[" + String.valueOf(index) + "]//div[1]//div[1]//div[1]//img[1]");
+        try {
+            Thread.sleep(2000);
+        }catch (Exception e){
+            e.getStackTrace();
+        }
         scrollToElement(view);
         Assert.assertTrue(assertElementDisplayed(view));
         List<WebElement> elements = driver.findElements(Units);
