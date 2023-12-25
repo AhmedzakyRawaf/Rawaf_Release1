@@ -33,17 +33,17 @@ public class PageBase {
     }
 
     public void waitForVisibilityOfElement(By by) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(100));
         wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(by));
     }
 
     public void waitForVisibilityOfWebElement(WebElement element) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(100));
         wait.until(ExpectedConditions.visibilityOf(element));
     }
 
     public void waitForInVisibilityOfElement(By by) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.invisibilityOfElementLocated(by));
     }
 
@@ -162,6 +162,21 @@ public class PageBase {
         String numericString = input.replaceAll("[^\\d.]", "");
 
         return Double.parseDouble(numericString);
+    }
+    public  String extractLatestIntegerAsString(String input) {
+        // Match the last sequence of digits in the URL
+        String regex = "\\d+";
+        java.util.regex.Pattern pattern = java.util.regex.Pattern.compile(regex);
+        java.util.regex.Matcher matcher = pattern.matcher(input);
+
+        // Find the matches
+        String latestIntegerAsString = "";
+        while (matcher.find()) {
+            // Update if it's greater than the current latest integer
+            latestIntegerAsString = matcher.group();
+        }
+
+        return latestIntegerAsString;
     }
 
 }
