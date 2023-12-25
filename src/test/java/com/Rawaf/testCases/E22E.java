@@ -29,7 +29,7 @@ public class E22E extends BaseTest {
 
     @Test
     public void TC001_validateEndToEndScenario() {
-        landPage.checkLandingScreen(true);
+        landPage.checkLandingScreen(false);
         landPage.navigateToOtherProjects();
         landPage.backToMain();
         landPage.navigateToRegister();
@@ -45,6 +45,8 @@ public class E22E extends BaseTest {
         landPage.backToMain();
         landPage.navigateToOtherProjects();
         projects.checkProjectsScreenInterestedAndReserve(true,FIRST_NAME, LAST_NAME, MOBILE);
+        landPage.backToMain();
+        landPage.navigateToOtherProjects();
         projects.checkProjectsScreenInterestedAndReserve(false,FIRST_NAME, LAST_NAME, MOBILE);
         landPage.backToMain();
     }

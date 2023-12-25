@@ -65,6 +65,11 @@ public class P002OtherProjects extends PageBase {
 
 
     private void checkElementsDisplayed() {
+        try {
+            Thread.sleep(5000);
+        }catch (Exception e){
+            e.getStackTrace();
+        }
         Assert.assertTrue(assertElementDisplayed(Rent));
         Assert.assertTrue(assertElementDisplayed(Sale));
         Assert.assertTrue(assertElementDisplayed(Reset));
@@ -77,7 +82,7 @@ public class P002OtherProjects extends PageBase {
     public void checkProjectsScreenInterestedAndReserve(Boolean isAuth,String firstname, String lastname, String mobile) {
         checkElementsDisplayed();
         checkAllForSaleProjects();
-//        checkUnitsScreen();
+        checkUnitsScreen();
         selectUnit(35);
         checkSelectedUnit();
         checkRegisterInterest(firstname, lastname, mobile);
@@ -86,6 +91,11 @@ public class P002OtherProjects extends PageBase {
         checkReserveUnit(firstname, lastname, mobile);
         checkPaymentProcess(isAuth,"test rawaf", "test@test.test", "4000000000000002", "10", "26", "123");
         if(isAuth){
+            try{
+                Thread.sleep(2000);
+            }catch (Exception e){
+                e.getStackTrace();
+            }
             response.testGetPropertyDetails("SOLD", Project_id, Integer.parseInt(unit_id));
         }else {
             response.testGetPropertyDetails("AVAILABLE", Project_id, Integer.parseInt(unit_id));
@@ -199,10 +209,30 @@ public class P002OtherProjects extends PageBase {
         }
         if (index < elements.size()) {
             scrollToElementTop(specific_Unit);
-            clickOnElement(specific_Unit);
+            String Specific_unit_href = getPAth(driver.findElement(specific_Unit).findElement(By.xpath("..")).
+                    findElement(By.xpath("..")).
+                    findElement(By.xpath("..")).
+                    findElement(By.xpath("..")).getAttribute("href"));
+            By clickable_part_of_Specific_unit = By.xpath("//a[@href='" + Specific_unit_href + "']");
+            try {
+                Thread.sleep(2000);
+            }catch (Exception e){
+                e.getStackTrace();
+            }
+            driver.findElement(specific_Unit).click();
         } else {
             scrollToElement(First_Unit);
-            clickOnElement(First_Unit);
+            String unit_href = getPAth(driver.findElement(First_Unit).findElement(By.xpath("..")).
+                    findElement(By.xpath("..")).
+                    findElement(By.xpath("..")).
+                    findElement(By.xpath("..")).getAttribute("href"));
+            By clickable_part_of_First_unit = By.xpath("//a[@class='w-full contents' and @href='" + unit_href + "']");
+            try {
+                Thread.sleep(2000);
+            }catch (Exception e){
+                e.getStackTrace();
+            }
+            driver.findElement(First_Unit).click();
         }
         unit_id = extractLatestIntegerAsString(driver.getCurrentUrl());
         System.out.println("=======>" + unit_id);

@@ -26,7 +26,7 @@ public class P006ContactUs extends PageBase {
     private final By select_Category = By.xpath("//select[@name='categoryId']");
     private final By VerifyCTA = By.xpath("(//button[@class='flex w-[80%] mx-auto md:mx-0 items-center justify-center gap-4 md:w-[122px] h-[36px] bg-indigo-800 rounded-lg opacity-50 MainButtonUse'])[1]");
     private final By Success_Message = By.xpath("//div[@class=\"text-right text-slate-900 text-sm font-extrabold font-['Loew Next Arabic'] leading-loose\"]");
-
+     private final By contact_us_message = By.xpath("//div[@class=\" self-stretch text-zinc-950 text-lg font-medium font-['Loew Next Arabic'] leading-loose\"]");
 
     private void validateEachElement(By by) {
         scrollToElement(by);
@@ -36,6 +36,7 @@ public class P006ContactUs extends PageBase {
     private void checkContactUsElements() {
         validateEachElement(Complains_Title);
         Assert.assertTrue(checkForLocalization(Complains_Title, "For Complaints and Suggestions", "للشكاوى والاقتراحات"));
+        Assert.assertTrue(checkForLocalization(contact_us_message,"Your request will be processed and you will be contacted by the support team","سيتم معالجة طلبك والتواصل معك من خلال فريق الدعم"));
         validateEachElement(Label_Name);
         validateEachElement(Label_Mail);
         validateEachElement(Label_Mobile);
