@@ -201,6 +201,11 @@ public class P001LandingPage extends PageBase {
     }
 
     public void backToMain() {
+        try {
+            Thread.sleep(2000);
+        }catch (Exception e){
+            e.getStackTrace();
+        }
         clickOnElement(Main);
         waitForVisibilityOfElement(Choose_Your_resident);
     }

@@ -19,12 +19,17 @@ public class M002OtherProjectsTest extends BaseTest {
     }
 
     @Test
-    public void TC_001validateProjectsScreen() {
+    public void TC_01validateProjectsScreenWithAuth() {
         landPage.navigateToOtherProjects();
-        projects.checkProjectsScreenInterestedAndReserve(FIRST_NAME, LAST_NAME, MOBILE);
+        projects.checkProjectsScreenInterestedAndReserve(true,FIRST_NAME, LAST_NAME, MOBILE);
     }
     @Test
-    public void TC_02CheckProjectsFilter(){
+    public void TC_02validateProjectsScreenWithoutAuth() {
+        landPage.navigateToOtherProjects();
+        projects.checkProjectsScreenInterestedAndReserve(false,FIRST_NAME, LAST_NAME, MOBILE);
+    }
+    @Test
+    public void TC_03CheckProjectsFilter(){
         landPage.navigateToOtherProjects();
         projects .checkProjectsAndFilter();
         landPage.backToMain();
