@@ -12,11 +12,13 @@ public class P002OtherProjects extends PageBase {
     public P002OtherProjects(WebDriver driver) {
         super(driver);
     }
+    P001LandingPage land;
 
     P003Register register;
     public String unit_id = "";
     public String Project_id = "";
     P007UnitsResponseChecks response;
+    public int project_index = 0;
 
 
     private final By Sale = By.xpath("//div[contains(text(),'Sale') or contains(text(),'للبيع')]");
@@ -62,6 +64,7 @@ public class P002OtherProjects extends PageBase {
     private final By amount_into_card = By.xpath("//div[@id='pt_label_amount']");
     private final By Do_Pay = By.xpath("//button[@id='payBtn']");
     private final By Authenticate = By.xpath("//input[@value='Authenticated']");
+    private final By real_estate = By.xpath("//input[@name='paymentTypeCode']");
 
 
     private void checkElementsDisplayed() {
@@ -79,28 +82,34 @@ public class P002OtherProjects extends PageBase {
 
     }
 
-    public void checkProjectsScreenInterestedAndReserve(Boolean isAuth,String firstname, String lastname, String mobile) {
+    public void checkProjectsScreenInterestedAndReserve(Boolean DoTerminateProcess,Boolean isAuth,String firstname, String lastname, String mobile) {
+        String phone = "0561" + generateRandomDigits(6);
         checkElementsDisplayed();
         checkAllForSaleProjects();
         checkUnitsScreen();
         selectUnit(35);
         checkSelectedUnit();
-        checkRegisterInterest(firstname, lastname, mobile);
+        checkRegisterInterest(firstname, lastname, phone);
         response = new P007UnitsResponseChecks();
         response.testGetPropertyDetails("AVAILABLE", Project_id, Integer.parseInt(unit_id));
-        checkReserveUnit(firstname, lastname, mobile);
-        checkPaymentProcess(isAuth,"test rawaf", "test@test.test", "4000000000000002", "10", "26", "123");
-        if(isAuth){
-            try{
-                Thread.sleep(2000);
-            }catch (Exception e){
-                e.getStackTrace();
-            }
-            response.testGetPropertyDetails("SOLD", Project_id, Integer.parseInt(unit_id));
-        }else {
-            response.testGetPropertyDetails("AVAILABLE", Project_id, Integer.parseInt(unit_id));
-        }
+        checkReserveUnit(firstname, lastname, phone);
+        if(DoTerminateProcess) {
+            driver.navigate().back();
 
+            response.testGetPropertyDetails("ON_HOLD", Project_id, Integer.parseInt(unit_id));
+        }else {
+            checkPaymentProcess(isAuth, "test rawaf", "test@test.test", "4000000000000002", "10", "26", "123");
+            if (isAuth) {
+                try {
+                    Thread.sleep(6000);
+                } catch (Exception e) {
+                    e.getStackTrace();
+                }
+                response.testGetPropertyDetails("ON_HOLD", Project_id, Integer.parseInt(unit_id));
+            } else {
+                response.testGetPropertyDetails("AVAILABLE", Project_id, Integer.parseInt(unit_id));
+            }
+        }
     }
 
     public void checkProjectsAndFilter() {
@@ -127,9 +136,9 @@ public class P002OtherProjects extends PageBase {
         for (int i = 0; i < elements.size(); i++) {
             waitForVisibilityOfWebElement(elements.get(i));
             scrollToElement(elements.get(i));
-            scrollToElement(elements.get(0));
-            waitForVisibilityOfWebElement(elements.get(0));
-            WebElement parentElement = elements.get(0).findElement(By.xpath(".."));
+            scrollToElement(elements.get(4));
+            waitForVisibilityOfWebElement(elements.get(4));
+            WebElement parentElement = elements.get(4).findElement(By.xpath(".."));
             WebElement parentElement2 = parentElement.findElement(By.xpath(".."));
             WebElement parentElement3 = parentElement2.findElement(By.xpath(".."));
             By clickable = By.xpath("//a[contains(@class, 'relative w-[335px] max-w-full overflow-hidden') and @href='" + getPAth(parentElement3.getAttribute("href")) + "']");
@@ -168,7 +177,7 @@ public class P002OtherProjects extends PageBase {
     }
 
     private void checkFilterBehavior() {
-        DoFilter("3", APARTMENT);
+        DoFilter("0", APARTMENT);
         DoFilter("0", All_Units);
 
     }
@@ -283,10 +292,23 @@ public class P002OtherProjects extends PageBase {
         String Down_Payment_Value = driver.findElement(Down_Payment).getText();
         System.out.println(Down_Payment_Value);
         fillReserveForm(firstname, lastname, mobile);
-        checkEachElement(Cash);
-        clickOnElement(Cash);
+        List <WebElement> cahses = driver.findElements(Cash);
+        if (cahses.isEmpty()) {
+            clickOnElement(real_estate);
+        }else {
+            checkEachElement(Cash);
+            clickOnElement(Cash);
+        }
         checkEachElement(Agree_Terms);
+        startReserveUnit();
+        Assert.assertTrue(assertElementDisplayed(By.xpath("//p[@class='mt-2 text-xs font-medium text-red-500']")));
+        Assert.assertTrue(checkForLocalization(By.xpath("//p[@class='mt-2 text-xs font-medium text-red-500']"),
+                "Must agree on terms and condition","يجب الموافقة على الشروط والأحكام"));
         clickOnElement(Agree_Terms);
+        startReserveUnit();
+        register.insertOtc();
+    }
+    private void startReserveUnit(){
         try {
             Thread.sleep(3000);
         } catch (Exception e) {
@@ -295,7 +317,6 @@ public class P002OtherProjects extends PageBase {
 
         checkEachElement(VerifyReserve);
         clickOnElement(VerifyReserve);
-        register.insertOtc();
     }
 
     private void fillReserveForm(String firstname, String lastname, String mobile) {
