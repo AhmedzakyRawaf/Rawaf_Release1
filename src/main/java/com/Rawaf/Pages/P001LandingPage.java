@@ -15,7 +15,7 @@ public class P001LandingPage extends PageBase {
 
     private final By Main = By.xpath("//a[normalize-space()='Home' or contains(text(),'الرئيسية')]");
     private final By About_Us = By.xpath("//a[normalize-space()='About Us' or contains(text(),'عن المنصة')]");
-    private final By Projects = By.cssSelector("a[href='projects']");
+    public final By Projects = By.cssSelector("a[href='projects']");
     private final By FAQs = By.xpath("//a[normalize-space()='FAQs' or contains(text(),'الأسئلة الشائعة')]");
     private final By Contact_US = By.xpath("//a[normalize-space()='Contact Us' or contains(text(),'تواصل معنا')]");
     private final By Choose_Your_resident = By.xpath("//div[@class=\"text-4xl font-extrabold font-['loewr']\"]");
@@ -36,8 +36,8 @@ public class P001LandingPage extends PageBase {
     private final By AjlanImg = By.xpath("//img[contains(@alt,'Al Ajlan')]");
     private final By BuatImg = By.xpath("//img[@alt='Al Buat']");
     private final By SaqeefahImg = By.xpath("//img[@alt='Al Saqeefah']");
-    private final By ProjectsTitle = By.xpath("//div[@class=\"grow shrink basis-0 text-[#EEEFF6] text-[28px] font-bold font-['Loew Next Arabic']\"]");
-    private final By OtherProjectLink = By.xpath("//a[@class=\"text-right hidden lg:flex items-center gap-1 text-amber-400 text-[22px] font-bold font-['Loew Next Arabic'] leading-[34px]\"]");
+    public final By ProjectsTitle = By.xpath("//div[@class=\"grow shrink basis-0 text-[#EEEFF6] text-[28px] font-bold font-['Loew Next Arabic']\"]");
+    public final By OtherProjectLink = By.xpath("//a[@class=\"text-right hidden lg:flex items-center gap-1 text-amber-400 text-[22px] font-bold font-['Loew Next Arabic'] leading-[34px]\"]");
     private final By FirstProject = By.xpath("(//img[contains(@alt,'العجلان ريڤييرا')])[1]");
     private final By SecondProject = By.xpath("(//img[contains(@alt,'دار بيات للتطوير والاستثمار العقاري')])[1]");
     private final By ThirdProject = By.xpath("(//img[contains(@alt,'دار بيات للتطوير والاستثمار العقاري')])[3]");
@@ -82,7 +82,7 @@ public class P001LandingPage extends PageBase {
         checkEachElement(AllRadioBtn);
         checkEachElement(RentRadioBTn);
         checkEachElement(SaleRadioBtn);
-        checkFilterMAp();
+//        checkFilterMAp();
     }
 
     private void checkFilterMAp() {

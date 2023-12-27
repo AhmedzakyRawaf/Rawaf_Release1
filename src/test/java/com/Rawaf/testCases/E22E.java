@@ -44,10 +44,13 @@ public class E22E extends BaseTest {
         contactUs.checkContactUsScreen(EMAIL, MOBILE, MESSAGE, NAME);
         landPage.backToMain();
         landPage.navigateToOtherProjects();
-        projects.checkProjectsScreenInterestedAndReserve(true,FIRST_NAME, LAST_NAME, MOBILE);
+        projects.checkProjectsScreenInterestedAndReserve(false,true,FIRST_NAME, LAST_NAME, MOBILE);
         landPage.backToMain();
         landPage.navigateToOtherProjects();
-        projects.checkProjectsScreenInterestedAndReserve(false,FIRST_NAME, LAST_NAME, MOBILE);
+        projects.checkProjectsScreenInterestedAndReserve(false,false,FIRST_NAME, LAST_NAME, MOBILE);
+        landPage.backToMain();
+        landPage.navigateToOtherProjects();
+        projects.checkProjectsScreenInterestedAndReserve(true,false,FIRST_NAME, LAST_NAME, MOBILE);
         landPage.backToMain();
     }
     @Test
