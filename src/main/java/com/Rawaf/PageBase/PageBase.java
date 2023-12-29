@@ -193,5 +193,12 @@ public class PageBase {
 
         return stringBuilder.toString();
     }
+    public void waitForTime(int millSec){
+        try {
+            Thread.sleep(millSec);
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+    }
 
 }

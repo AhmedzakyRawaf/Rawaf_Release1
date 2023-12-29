@@ -6,16 +6,18 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class P002OtherProjects extends PageBase {
     public P002OtherProjects(WebDriver driver) {
         super(driver);
     }
+
     P001LandingPage land;
 
     P003Register register;
-    public String unit_id = "";
+    public List<String> unit_id = new ArrayList<>();
     public String Project_id = "";
     P007UnitsResponseChecks response;
     public int project_index = 0;
@@ -68,11 +70,7 @@ public class P002OtherProjects extends PageBase {
 
 
     private void checkElementsDisplayed() {
-        try {
-            Thread.sleep(5000);
-        }catch (Exception e){
-            e.getStackTrace();
-        }
+        waitForTime(5000);
         Assert.assertTrue(assertElementDisplayed(Rent));
         Assert.assertTrue(assertElementDisplayed(Sale));
         Assert.assertTrue(assertElementDisplayed(Reset));
@@ -82,34 +80,39 @@ public class P002OtherProjects extends PageBase {
 
     }
 
-    public void checkProjectsScreenInterestedAndReserve(Boolean DoTerminateProcess,Boolean isAuth,String firstname, String lastname, String mobile) {
+    public void checkProjectsScreenInterestedAndReserve(int unit,  Boolean isAuth, String firstname, String lastname, String mobile) {
         String phone = "0561" + generateRandomDigits(6);
+        prepareUnitBeforeReservation(unit,firstname, lastname, phone);
+        response = new P007UnitsResponseChecks();
+        response.testGetPropertyDetails("AVAILABLE", Project_id, Integer.parseInt(unit_id.get(unit)));
+        checkReserveUnit(firstname, lastname, phone);
+        terminateReserveAndBackToProjects();
+        response.testGetPropertyDetails("ON_HOLD", Project_id, Integer.parseInt(unit_id.get(unit)));
+        prepareUnitBeforeReservation(unit + 1,firstname, lastname, phone);
+        checkReserveUnit(firstname, lastname, phone);
+        checkPaymentProcess(isAuth, "test rawaf", "test@test.test", "4000000000000002", "10", "26", "123");
+        if (isAuth) {
+            waitForTime(5000);
+            response.testGetPropertyDetails("SOLD", Project_id, Integer.parseInt(unit_id.get(unit + 1)));
+        } else {
+            response.testGetPropertyDetails("AVAILABLE", Project_id, Integer.parseInt(unit_id.get(unit + 1)));
+        }
+        response.testGetPropertyDetails("AVAILABLE", Project_id, Integer.parseInt(unit_id.get(unit)));
+
+
+    }
+    private void prepareUnitBeforeReservation(int unit,String firstname, String lastname, String phone){
         checkElementsDisplayed();
         checkAllForSaleProjects();
         checkUnitsScreen();
-        selectUnit(35);
+        selectUnit(unit);
         checkSelectedUnit();
-        checkRegisterInterest(firstname, lastname, phone);
-        response = new P007UnitsResponseChecks();
-        response.testGetPropertyDetails("AVAILABLE", Project_id, Integer.parseInt(unit_id));
-        checkReserveUnit(firstname, lastname, phone);
-        if(DoTerminateProcess) {
-            driver.navigate().back();
-
-            response.testGetPropertyDetails("ON_HOLD", Project_id, Integer.parseInt(unit_id));
-        }else {
-            checkPaymentProcess(isAuth, "test rawaf", "test@test.test", "4000000000000002", "10", "26", "123");
-            if (isAuth) {
-                try {
-                    Thread.sleep(6000);
-                } catch (Exception e) {
-                    e.getStackTrace();
-                }
-                response.testGetPropertyDetails("ON_HOLD", Project_id, Integer.parseInt(unit_id));
-            } else {
-                response.testGetPropertyDetails("AVAILABLE", Project_id, Integer.parseInt(unit_id));
-            }
-        }
+        checkRegisterInterest(unit,firstname, lastname, phone);
+    }
+    private void terminateReserveAndBackToProjects(){
+        driver.navigate().back();
+        driver.get("https://beta.rawaf.ai/projects");
+        waitForTime(2000);
     }
 
     public void checkProjectsAndFilter() {
@@ -145,11 +148,7 @@ public class P002OtherProjects extends PageBase {
             scrollToElement(clickable);
             Project_id = extractLatestIntegerAsString(getPAth(parentElement3.getAttribute("href")));
             System.out.println("=============>" + Project_id);
-            try {
-                Thread.sleep(2000);
-            } catch (Exception e) {
-                e.getStackTrace();
-            }
+            waitForTime(3000);
             driver.findElement(clickable).click();
 
             break;
@@ -158,11 +157,7 @@ public class P002OtherProjects extends PageBase {
 
 
     private void checkUnitsScreenElements() {
-        try {
-            Thread.sleep(3000);
-        } catch (Exception e) {
-            e.getStackTrace();
-        }
+        waitForTime(3000);
         Assert.assertTrue(assertElementDisplayed(Logo));
         checkEachElement(Search_on_units);
         checkEachElement(APARTMENT);
@@ -183,11 +178,7 @@ public class P002OtherProjects extends PageBase {
     }
 
     private void DoFilter(String index, By by) {
-        try {
-            Thread.sleep(2000);
-        } catch (Exception e) {
-            e.getStackTrace();
-        }
+        waitForTime(2000);
         scrollToElement(APARTMENT);
         driver.findElement(by).click();
         scrollToElement(Select_Floor);
@@ -203,12 +194,8 @@ public class P002OtherProjects extends PageBase {
     }
 
     private void selectUnit(int index) {
-        By specific_Unit = By.xpath("//a[" + String.valueOf(index) + "]//div[1]//div[1]//div[1]//img[1]");
-        try {
-            Thread.sleep(2000);
-        } catch (Exception e) {
-            e.getStackTrace();
-        }
+        By specific_Unit = By.xpath("//a[" + (index+1) + "]//div[1]//div[1]//div[1]//img[1]");
+        waitForTime(2000);
         scrollToElement(view);
         Assert.assertTrue(assertElementDisplayed(view));
         List<WebElement> elements = driver.findElements(Units);
@@ -218,32 +205,14 @@ public class P002OtherProjects extends PageBase {
         }
         if (index < elements.size()) {
             scrollToElementTop(specific_Unit);
-            String Specific_unit_href = getPAth(driver.findElement(specific_Unit).findElement(By.xpath("..")).
-                    findElement(By.xpath("..")).
-                    findElement(By.xpath("..")).
-                    findElement(By.xpath("..")).getAttribute("href"));
-            By clickable_part_of_Specific_unit = By.xpath("//a[@href='" + Specific_unit_href + "']");
-            try {
-                Thread.sleep(2000);
-            }catch (Exception e){
-                e.getStackTrace();
-            }
+            waitForTime(2000);
             driver.findElement(specific_Unit).click();
         } else {
             scrollToElement(First_Unit);
-            String unit_href = getPAth(driver.findElement(First_Unit).findElement(By.xpath("..")).
-                    findElement(By.xpath("..")).
-                    findElement(By.xpath("..")).
-                    findElement(By.xpath("..")).getAttribute("href"));
-            By clickable_part_of_First_unit = By.xpath("//a[@class='w-full contents' and @href='" + unit_href + "']");
-            try {
-                Thread.sleep(2000);
-            }catch (Exception e){
-                e.getStackTrace();
-            }
+            waitForTime(2000);
             driver.findElement(First_Unit).click();
         }
-        unit_id = extractLatestIntegerAsString(driver.getCurrentUrl());
+        unit_id.add(extractLatestIntegerAsString(driver.getCurrentUrl()));
         System.out.println("=======>" + unit_id);
     }
 
@@ -257,34 +226,26 @@ public class P002OtherProjects extends PageBase {
         Assert.assertTrue(checkForLocalization(Reserve_Unit, "Reserve Unit", "احجز الوحدة"));
     }
 
-    private void checkRegisterInterest(String firstname, String lastname, String mobile) {
+    private void checkRegisterInterest(int index ,String firstname, String lastname, String mobile) {
         try {
             Thread.sleep(10000);
         } catch (Exception e) {
             e.getStackTrace();
         }
-        checkEachElement(By.xpath("//a[contains(@class, 'MainButtonUse') and @href='/Interest/" + Project_id +"/" + unit_id +"']"));
-        Assert.assertTrue(checkForLocalization(By.xpath("//a[contains(@class, 'MainButtonUse') and @href='/Interest/" + Project_id +"/" + unit_id +"']"), "Register interest"
+        checkEachElement(By.xpath("//a[contains(@class, 'MainButtonUse') and @href='/Interest/" + Project_id + "/" + unit_id.get(index) + "']"));
+        Assert.assertTrue(checkForLocalization(By.xpath("//a[contains(@class, 'MainButtonUse') and @href='/Interest/" + Project_id + "/" + unit_id.get(index)  + "']"), "Register interest"
                 , "سجل اهتمامك للوحدة"));
-        clickOnElement(By.xpath("//a[contains(@class, 'MainButtonUse') and @href='/Interest/" + Project_id +"/" + unit_id +"']"));
+        clickOnElement(By.xpath("//a[contains(@class, 'MainButtonUse') and @href='/Interest/" + Project_id + "/" + unit_id.get(index)  + "']"));
         register = new P003Register(driver);
         register.checkRegisterScreen(firstname, lastname, mobile);
-        try {
-            Thread.sleep(2000);
-        } catch (Exception e) {
-            e.getStackTrace();
-        }
+        waitForTime(2000);
         scrollUpToElement(Reserve_Unit);
         Assert.assertTrue(assertElementDisplayed(Reserve_Unit));
 
     }
 
     private void checkReserveUnit(String firstname, String lastname, String mobile) {
-        try {
-            Thread.sleep(6000);
-        } catch (Exception e) {
-            e.getStackTrace();
-        }
+        waitForTime(5000);
         clickOnElement(Reserve_Unit);
         Assert.assertTrue(assertElementDisplayed(Reserve_Message));
         Assert.assertTrue(checkForLocalization(Reserve_Message, "You must complete the payment process to reserve the unit", "يجب عليك إكمال عملية الدفع لحجز الوحدة"));
@@ -292,10 +253,10 @@ public class P002OtherProjects extends PageBase {
         String Down_Payment_Value = driver.findElement(Down_Payment).getText();
         System.out.println(Down_Payment_Value);
         fillReserveForm(firstname, lastname, mobile);
-        List <WebElement> cahses = driver.findElements(Cash);
+        List<WebElement> cahses = driver.findElements(Cash);
         if (cahses.isEmpty()) {
             clickOnElement(real_estate);
-        }else {
+        } else {
             checkEachElement(Cash);
             clickOnElement(Cash);
         }
@@ -303,18 +264,14 @@ public class P002OtherProjects extends PageBase {
         startReserveUnit();
         Assert.assertTrue(assertElementDisplayed(By.xpath("//p[@class='mt-2 text-xs font-medium text-red-500']")));
         Assert.assertTrue(checkForLocalization(By.xpath("//p[@class='mt-2 text-xs font-medium text-red-500']"),
-                "Must agree on terms and condition","يجب الموافقة على الشروط والأحكام"));
+                "Must agree on terms and condition", "يجب الموافقة على الشروط والأحكام"));
         clickOnElement(Agree_Terms);
         startReserveUnit();
         register.insertOtc();
     }
-    private void startReserveUnit(){
-        try {
-            Thread.sleep(3000);
-        } catch (Exception e) {
-            e.getStackTrace();
-        }
 
+    private void startReserveUnit() {
+        waitForTime(3000);
         checkEachElement(VerifyReserve);
         clickOnElement(VerifyReserve);
     }
@@ -370,14 +327,14 @@ public class P002OtherProjects extends PageBase {
     private void checkDoPay(Boolean isAuth) {
         scrollToElement(Do_Pay);
         clickOnElement(Do_Pay);
-        if(isAuth) {
+        if (isAuth) {
             try {
                 Assert.assertTrue(assertElementDisplayed(Authenticate));
                 clickOnElement(Authenticate);
             } catch (Exception e) {
                 e.getStackTrace();
             }
-        }else {
+        } else {
             try {
                 Assert.assertTrue(assertElementDisplayed(By.xpath("//input[@value='Rejected']")));
                 clickOnElement(By.xpath("//input[@value='Rejected']"));
@@ -387,7 +344,7 @@ public class P002OtherProjects extends PageBase {
         }
     }
 
-    private void checkPaymentProcess(Boolean isAuth , String name, String mail, String number, String month, String year, String CVV) {
+    private void checkPaymentProcess(Boolean isAuth, String name, String mail, String number, String month, String year, String CVV) {
         checkFirstInvoiceScreen();
         checkViewInvoice();
         fillCardDetails(name, mail, number, month, year, CVV);
