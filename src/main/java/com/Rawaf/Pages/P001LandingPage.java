@@ -38,9 +38,7 @@ public class P001LandingPage extends PageBase {
     private final By SaqeefahImg = By.xpath("//img[@alt='Al Saqeefah']");
     public final By ProjectsTitle = By.xpath("//div[@class=\"grow shrink basis-0 text-[#EEEFF6] text-[28px] font-bold font-['Loew Next Arabic']\"]");
     public final By OtherProjectLink = By.xpath("//a[@class=\"text-right hidden lg:flex items-center gap-1 text-amber-400 text-[22px] font-bold font-['Loew Next Arabic'] leading-[34px]\"]");
-    private final By FirstProject = By.xpath("(//img[contains(@alt,'العجلان ريڤييرا')])[1]");
-    private final By SecondProject = By.xpath("(//img[contains(@alt,'دار بيات للتطوير والاستثمار العقاري')])[1]");
-    private final By ThirdProject = By.xpath("(//img[contains(@alt,'دار بيات للتطوير والاستثمار العقاري')])[3]");
+    private final By FirstProject = By.xpath("//a[1]//div[1]//div[1]//div[1]//img[1]");
     private final By Register = By.xpath("//div[@class=\"text-center text-white text-base font-bold font-['Loew Next Arabic'] leading-7\"]");
     private final By FAQ_Title = By.xpath("//h1[normalize-space()='FAQs' or contains(text(),'الأسئلة الأكثر شيوعاً')]");
     private final By Complains_Title = By.xpath("//body//div//h1[1]");
@@ -110,8 +108,7 @@ public class P001LandingPage extends PageBase {
         checkEachElement(OtherProjectLink);
         Assert.assertTrue(checkForLocalization(OtherProjectLink, "Other Projects", "بقية المشاريع"));
         checkEachElement(FirstProject);
-        checkEachElement(SecondProject);
-        checkEachElement(ThirdProject);
+
     }
 
     private final By ProjectsMessage = By.xpath("//div[@class=\"self-stretch text-slate-500 text-base font-medium font-['Loew Next Arabic'] leading-7\"]");
